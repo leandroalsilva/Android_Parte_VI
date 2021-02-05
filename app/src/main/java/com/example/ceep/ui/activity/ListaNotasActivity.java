@@ -1,15 +1,14 @@
 package com.example.ceep.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ListView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ceep.R;
 import com.example.ceep.dao.NotaDAO;
 import com.example.ceep.model.Nota;
-import com.example.ceep.ui.adapter.ListaNotasAdapter;
+import com.example.ceep.ui.recyclerview.adapter.ListaNotasAdapter;
 
 import java.util.List;
 
@@ -20,7 +19,7 @@ public class ListaNotasActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_notas);
 
-        ListView listaNotas = findViewById(R.id.listView);
+        RecyclerView listaNotas = findViewById(R.id.lista_notas_recyclerview);
         NotaDAO dao = new NotaDAO();
         for (int i = 1; i <= 10000; i++){
             dao.insere(new Nota("Título " + i, "Descrição " + i));
@@ -28,6 +27,6 @@ public class ListaNotasActivity extends AppCompatActivity {
 
         List<Nota> todasNotas = dao.todos();
 
-        listaNotas.setAdapter(new ListaNotasAdapter(this, todasNotas));
+        listaNotas.setAdapter(new ListaNotasAdapter());
     }
 }
