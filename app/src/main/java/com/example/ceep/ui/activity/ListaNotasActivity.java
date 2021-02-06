@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +15,7 @@ import com.example.ceep.dao.NotaDAO;
 import com.example.ceep.model.Nota;
 import com.example.ceep.ui.recyclerview.adapter.ListaNotasAdapter;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class ListaNotasActivity extends AppCompatActivity {
@@ -34,17 +36,23 @@ public class ListaNotasActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent iniciaFormularioNota = new Intent(ListaNotasActivity.this,
                         FormularioNotaActivity.class);
-                startActivity(iniciaFormularioNota);
+                startActivityForResult(iniciaFormularioNota, 1);
             }
         });
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == 1 && resultCode == 2 && data.hasExtra("nota")){
+            Nota notaRecebida = (Nota) data.getSerializableExtra("nota");
+            new NotaDAO().insere((notaRecebida));
+            adapter.adiciona(notaRecebida);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
     protected void onResume() {
-        NotaDAO dao = new NotaDAO();
-        todasNotas.clear();
-        todasNotas.addAll(dao.todos());
-        adapter.notifyDataSetChanged();
         super.onResume();
     }
 
