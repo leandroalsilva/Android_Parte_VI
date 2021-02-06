@@ -19,8 +19,8 @@ import java.util.List;
 
 public class ListaNotasAdapter extends RecyclerView.Adapter<ListaNotasAdapter.NotaViewHolder> {
 
-    private List<Nota> notas;
-    private Context context;
+    private final List<Nota> notas;
+    private final Context context;
 
     public ListaNotasAdapter (Context context, List<Nota> notas) {
         this.context = context;
@@ -49,6 +49,7 @@ public class ListaNotasAdapter extends RecyclerView.Adapter<ListaNotasAdapter.No
     class NotaViewHolder extends RecyclerView.ViewHolder{
         private final TextView titulo;
         private final TextView descricao;
+
         public NotaViewHolder(@NonNull View itemView) {
             super(itemView);
             titulo = itemView.findViewById(R.id.item_nota_titulo);
@@ -56,6 +57,10 @@ public class ListaNotasAdapter extends RecyclerView.Adapter<ListaNotasAdapter.No
         }
 
         public void vincula (Nota nota){
+            preencheCampos(nota);
+        }
+
+        private void preencheCampos(Nota nota) {
             titulo.setText((nota.getTitulo()));
             descricao.setText((nota.getDescricao()));
         }
