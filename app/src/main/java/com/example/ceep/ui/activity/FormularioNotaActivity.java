@@ -14,10 +14,10 @@ import com.example.ceep.R;
 import com.example.ceep.dao.NotaDAO;
 import com.example.ceep.model.Nota;
 
-public class FormularioNotaActivity extends AppCompatActivity {
+import static com.example.ceep.ui.activity.NotaActivityConstantes.CHAVE_NOTA;
+import static com.example.ceep.ui.activity.NotaActivityConstantes.CODIGO_RESULTADO_NOTA_CRIADA;
 
-    public static final String CHAVE_NOTA = "nota";
-    public static final int CODIGO_RESULTADO_NOTA_CRIADA = 2;
+public class FormularioNotaActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
