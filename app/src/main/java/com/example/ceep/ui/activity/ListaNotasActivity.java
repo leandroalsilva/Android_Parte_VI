@@ -23,7 +23,6 @@ public class ListaNotasActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_notas);
         List<Nota> todasNotas = notasDeExemplo();
-        configuraRecyclerView(todasNotas);
 
         TextView botaoInsereNota = findViewById(R.id.lista_notas_insere_nota);
         botaoInsereNota.setOnClickListener(new View.OnClickListener() {
@@ -34,6 +33,14 @@ public class ListaNotasActivity extends AppCompatActivity {
                 startActivity(iniciaFormularioNota);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        NotaDAO dao = new NotaDAO();
+        List<Nota> todasNotas = dao.todos();
+        configuraRecyclerView(todasNotas);
+        super.onResume();
     }
 
     private List<Nota> notasDeExemplo() {
